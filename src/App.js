@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Mail, ExternalLink, Layout, Code, Zap, Database, ShoppingCart, 
-  Video, Palette, Smartphone, Target, Film, Share2, PenTool, 
-  Shield, MessageCircle, ChevronRight
+  Video, Palette, Target, Film, Share2, PenTool, 
+  Shield, MessageCircle, Award
 } from 'lucide-react';
 
 // --- DATA ---
+const MY_NAME = "Muhammad Huzaifa";
 const WHATSAPP_LINK = "https://wa.me/923147600260";
 const EMAIL_ADDRESS = "muhhuzaifa6090@gmail.com";
 
@@ -75,8 +76,10 @@ const DigitalGlobe = () => {
 
     const resize = () => {
       const parent = canvas.parentElement;
-      canvas.width = parent.clientWidth;
-      canvas.height = parent.clientHeight || 500;
+      if (parent) {
+        canvas.width = parent.clientWidth;
+        canvas.height = parent.clientHeight || 500;
+      }
     };
     window.addEventListener('resize', resize);
     resize();
@@ -108,11 +111,11 @@ const DigitalGlobe = () => {
       const centerY = canvas.height / 2;
       const globeRadius = Math.min(canvas.width, canvas.height) * 0.38;
 
-      const project = (x, y, z) => {
-        let x1 = x * Math.cos(time) - z * Math.sin(time);
-        let z1 = x * Math.sin(time) + z * Math.cos(time);
-        let y2 = y * Math.cos(0.3) - z1 * Math.sin(0.3);
-        let z2 = y * Math.sin(0.3) + z1 * Math.cos(0.3);
+      const project = (px, py, pz) => {
+        let x1 = px * Math.cos(time) - pz * Math.sin(time);
+        let z1 = px * Math.sin(time) + pz * Math.cos(time);
+        let y2 = py * Math.cos(0.3) - z1 * Math.sin(0.3);
+        let z2 = py * Math.sin(0.3) + z1 * Math.cos(0.3);
         const pS = 700 / (700 + z2 * globeRadius);
         return { sx: centerX + x1 * globeRadius * pS, sy: centerY + y2 * globeRadius * pS, z: z2 };
       };
@@ -164,9 +167,10 @@ const DigitalGlobe = () => {
           const a = (i / skillsToDisplay.length) * Math.PI * 2 - Math.PI/2;
           const x = Math.cos(a) * 230;
           const y = Math.sin(a) * 180;
+          const SkillIcon = skill.Icon;
           return (
             <div key={i} className="absolute p-3 bg-slate-900/80 border border-cyan-500 rounded-full text-cyan-400 backdrop-blur-md shadow-[0_0_20px_rgba(0,170,255,0.4)]" style={{ transform: `translate(${x}px, ${y}px)` }}>
-              <skill.Icon size={22} />
+              <SkillIcon size={22} />
             </div>
           );
         })}
@@ -181,8 +185,8 @@ export default function App() {
     <div className="min-h-screen bg-[#020617] text-white p-6 md:p-12 overflow-x-hidden selection:bg-cyan-500/30">
       <nav className="flex justify-between items-center mb-20 max-w-7xl mx-auto">
         <div className="text-2xl font-black flex items-center gap-2">
-           <div className="w-10 h-10 bg-[#00aaff] rounded-lg flex items-center justify-center text-white text-sm italic">MH</div>
-           Huzaifa<span className="text-[#00aaff]">.</span>
+           <div className="w-10 h-10 bg-gradient-to-br from-[#00aaff] to-blue-600 rounded-lg flex items-center justify-center text-white text-sm italic">MH</div>
+           <span>{MY_NAME.split(' ')[1]}<span className="text-[#00aaff]">.</span></span>
         </div>
         <div className="hidden md:flex gap-10 text-slate-400 text-sm font-bold uppercase tracking-widest">
           <a href="#projects" className="hover:text-white transition-colors">Projects</a>
@@ -193,7 +197,7 @@ export default function App() {
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-32">
         <div className="text-left">
-          <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight tracking-tighter">Hey, I'm <br/><span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00aaff] to-blue-600">Huzaifa</span></h1>
+          <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight tracking-tighter">Hey, I'm <br/><span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00aaff] to-blue-600">{MY_NAME.split(' ')[1]}</span></h1>
           <p className="text-slate-400 text-xl mb-10 max-w-lg leading-relaxed font-medium">Expert Web Developer & Digital Strategist. Building scalable e-commerce solutions for global brands.</p>
           <div className="flex flex-wrap gap-4">
              <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="bg-white text-black px-10 py-5 rounded-full font-black text-lg flex items-center gap-2 hover:scale-105 transition-transform"><MessageCircle size={20}/> Hire Me</a>
@@ -250,10 +254,15 @@ export default function App() {
 
       <footer className="mt-32 pt-12 border-t border-slate-900 text-center">
         <div className="flex justify-center gap-6 mb-8 text-slate-400">
-           <a href={WHATSAPP_LINK} className="hover:text-[#00aaff] transition-colors"><MessageCircle size={30}/></a>
+           <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="hover:text-[#00aaff] transition-colors"><MessageCircle size={30}/></a>
            <a href={`mailto:${EMAIL_ADDRESS}`} className="hover:text-[#00aaff] transition-colors"><Mail size={30}/></a>
         </div>
-        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">&copy; {new Date().getFullYear()} MUHAMMAD HUZAIFA</p>
+        <div className="mb-6 flex flex-col items-center gap-2">
+            <Award className="text-[#00aaff] opacity-50" size={24} />
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">
+                &copy; {new Date().getFullYear()} {MY_NAME}
+            </p>
+        </div>
       </footer>
 
       <style dangerouslySetInnerHTML={{ __html: `
@@ -261,12 +270,15 @@ export default function App() {
         .animate-marquee { animation: marquee 35s linear infinite; }
       `}} />
       <div className="w-full py-12 border-t border-slate-900 overflow-hidden flex whitespace-nowrap animate-marquee">
-        {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
-          <div key={idx} className="flex items-center gap-4 px-12 opacity-30 hover:opacity-100 transition-opacity cursor-default group">
-            <item.Icon className="text-[#00aaff] group-hover:scale-125 transition-transform" size={24} />
-            <span className="text-3xl font-black uppercase tracking-widest leading-none">{item.name}</span>
-          </div>
-        ))}
+        {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => {
+          const ItemIcon = item.Icon;
+          return (
+            <div key={idx} className="flex items-center gap-4 px-12 opacity-30 hover:opacity-100 transition-opacity cursor-default group">
+              <ItemIcon className="text-[#00aaff] group-hover:scale-125 transition-transform" size={24} />
+              <span className="text-3xl font-black uppercase tracking-widest leading-none">{item.name}</span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
