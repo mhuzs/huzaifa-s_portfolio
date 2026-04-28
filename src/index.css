@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background-color: #020617; /* Matches the deep dark blue from your globe image */
+  color: white;
+  overflow-x: hidden;
+}
+
+/* This creates the professional thin blue scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+::-webkit-scrollbar-thumb {
+  background: #00aaff;
+  border-radius: 10px;
+}
