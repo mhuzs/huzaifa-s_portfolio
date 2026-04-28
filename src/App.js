@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Github, Linkedin, Mail, ExternalLink, ChevronDown, Menu, X, Code, Palette,
-  ShoppingCart, Monitor, Smartphone, Video, Database, Layout, Zap,
-  Briefcase, Calendar, ChevronRight, Terminal as TerminalIcon, Command, Globe,
-  MessageCircle, Send, Award, CheckCircle2, Star, Rocket, Target, Sparkles, Layers,
-  Cpu, Activity, Radio, Workflow, Film, Share2, MousePointer2, PenTool, Shield
+  Mail, ExternalLink, Layout, Code, Zap, Database, ShoppingCart, 
+  Video, Palette, Smartphone, Target, Film, Share2, PenTool, 
+  Shield, MessageCircle, ChevronRight
 } from 'lucide-react';
 
 // --- DATA ---
-const MY_NAME = "Muhammad Huzaifa";
 const WHATSAPP_LINK = "https://wa.me/923147600260";
 const EMAIL_ADDRESS = "muhhuzaifa6090@gmail.com";
 
@@ -25,7 +22,7 @@ const SKILLS = [
 const PROJECTS = [
   { id: 1, title: "Canada Wheels", description: "High-performance e-commerce platform for automotive wheels and accessories.", tags: ["Shopify", "E-commerce"], link: "https://canadawheels.com", gradient: "from-blue-600 to-cyan-500", Icon: ShoppingCart },
   { id: 2, title: "Electric House", description: "Modern digital presence for electrical services and products.", tags: ["HTML/CSS", "Bootstrap"], link: "https://electrichouse.net", gradient: "from-amber-500 to-orange-600", Icon: Zap },
-  { id: 3, title: "Zartaj", description: "Elegant online retail platform with a focus on user experience.", tags: ["WordPress", "CMS"], link: "https://zartaj.com.pk", gradient: "from-purple-600 to-pink-500", Icon: Monitor },
+  { id: 3, title: "Zartaj", description: "Elegant online retail platform with a focus on user experience.", tags: ["WordPress", "CMS"], link: "https://zartaj.com.pk", gradient: "from-purple-600 to-pink-500", Icon: Layout },
   { id: 4, title: "Zainulhaq Foundation", description: "Digital platform for a non-profit foundation dedicated to social welfare and healthcare support.", tags: ["WordPress", "Non-Profit"], link: "https://zainulhaqfoundation.org", gradient: "from-emerald-500 to-teal-600", Icon: Shield }
 ];
 
@@ -47,30 +44,10 @@ const EXPERIENCE = [
 ];
 
 const SERVICES = [
-  {
-    title: "Web Development",
-    desc: "Bespoke, high-performance websites built with the latest React and Tailwind frameworks for maximum speed and SEO.",
-    icon: Layout,
-    color: "from-blue-500 to-cyan-400"
-  },
-  {
-    title: "E-commerce Mastery",
-    desc: "End-to-end Shopify and WordPress store development designed to convert visitors into loyal customers.",
-    icon: ShoppingCart,
-    color: "from-cyan-500 to-blue-600"
-  },
-  {
-    title: "Visual Storytelling",
-    desc: "Professional video editing and high-end graphic design that captures your brand's unique voice.",
-    icon: Video,
-    color: "from-indigo-500 to-blue-500"
-  },
-  {
-    title: "Digital Growth",
-    desc: "Strategic social media marketing and SEO optimization to scale your business presence globally.",
-    icon: Target,
-    color: "from-[#00aaff] to-cyan-500"
-  }
+  { title: "Web Development", desc: "Bespoke, high-performance websites built with the latest React and Tailwind frameworks.", icon: Layout, color: "from-blue-500 to-cyan-400" },
+  { title: "E-commerce Mastery", desc: "End-to-end Shopify and WordPress store development designed to convert visitors.", icon: ShoppingCart, color: "from-cyan-500 to-blue-600" },
+  { title: "Visual Storytelling", desc: "Professional video editing and high-end graphic design that captures your brand's voice.", icon: Video, color: "from-indigo-500 to-blue-500" },
+  { title: "Digital Growth", desc: "Strategic social media marketing and SEO optimization to scale your business presence.", icon: Target, color: "from-[#00aaff] to-cyan-500" }
 ];
 
 const MARQUEE_ITEMS = [
@@ -81,12 +58,10 @@ const MARQUEE_ITEMS = [
   { name: "Meta Ads", Icon: Target },
   { name: "Social Media", Icon: Share2 },
   { name: "UI/UX Design", Icon: PenTool },
-  { name: "Bootstrap", Icon: Layout },
-  { name: "E-commerce", Icon: ShoppingCart },
-  { name: "Graphics", Icon: Monitor }
+  { name: "Bootstrap", Icon: Layout }
 ];
 
-// --- REALISTIC FUTURE GLOBE COMPONENT ---
+// --- GLOBE COMPONENT ---
 const DigitalGlobe = () => {
   const canvasRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -142,7 +117,6 @@ const DigitalGlobe = () => {
         return { sx: centerX + x1 * globeRadius * pS, sy: centerY + y2 * globeRadius * pS, z: z2 };
       };
 
-      // Back Rings
       rings.forEach(ring => {
         ctx.beginPath();
         ctx.strokeStyle = `rgba(0, 170, 255, ${ring.opacity * 0.2})`;
@@ -156,7 +130,6 @@ const DigitalGlobe = () => {
         ctx.stroke();
       });
 
-      // Particles
       const rotated = points.map(p => ({...p, ...project(p.x, p.y, p.z)})).sort((a,b) => b.z - a.z);
       rotated.forEach(p => {
         const opacity = Math.max(0.1, 1 - ((p.z + 1) / 2));
@@ -164,7 +137,6 @@ const DigitalGlobe = () => {
         ctx.fillRect(p.sx, p.sy, p.isContinent ? 1.6 : 0.8, p.isContinent ? 1.6 : 0.8);
       });
 
-      // Front Rings
       rings.forEach(ring => {
         ctx.beginPath();
         ctx.strokeStyle = `rgba(0, 170, 255, ${ring.opacity})`;
@@ -203,196 +175,22 @@ const DigitalGlobe = () => {
   );
 };
 
-// --- ATTRACTIVE EXPERIENCE HUB ---
-const ExperienceHub = () => {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      {/* Left: Journey Timeline */}
-      <div className="lg:col-span-7 space-y-8">
-        {EXPERIENCE.map((exp, idx) => (
-          <div key={idx} className="relative pl-8 group">
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-slate-800 group-last:bg-transparent"></div>
-            <div className="absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-[#00aaff] shadow-[0_0_10px_#00aaff]"></div>
-            
-            <div className="bg-slate-900/40 border border-slate-800/50 p-6 rounded-2xl hover:border-[#00aaff]/40 transition-all backdrop-blur-sm">
-              <span className="text-[10px] font-black text-[#00aaff] tracking-[0.2em] mb-2 block">{exp.period}</span>
-              <h3 className="text-xl font-black text-white mb-1">{exp.role}</h3>
-              <p className="text-slate-400 text-sm font-bold mb-4">{exp.company}</p>
-              <p className="text-slate-500 text-sm leading-relaxed mb-4">{exp.desc}</p>
-              <div className="flex flex-wrap gap-2">
-                {exp.skills.map(s => (
-                  <span key={s} className="text-[9px] border border-slate-800 px-2 py-1 rounded-md text-slate-400 uppercase font-bold tracking-wider">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Right: Technical Proficiency HUD */}
-      <div className="lg:col-span-5 bg-slate-900/60 border border-slate-800 rounded-3xl p-8 relative overflow-hidden group">
-        <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#00aaff]/10 rounded-full blur-[60px]"></div>
-        <h3 className="text-xl font-black mb-8 flex items-center gap-2">
-          <Award className="text-[#00aaff]" size={20} />
-          Technical Stack
-        </h3>
-        
-        <div className="space-y-6">
-          {SKILLS.map((skill, idx) => (
-            <div key={idx} className="space-y-2">
-              <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
-                <span className="flex items-center gap-2"><skill.Icon size={14} className="text-[#00aaff]" /> {skill.name}</span>
-                <span>{skill.level}</span>
-              </div>
-              <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-[#00aaff] to-blue-600 rounded-full transition-all duration-1000"
-                  style={{ width: skill.level }}
-                ></div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 pt-8 border-t border-slate-800 flex items-center justify-between">
-            <div className="flex flex-col">
-              <span className="text-2xl font-black text-white">3+</span>
-              <span className="text-[10px] text-slate-500 uppercase font-black tracking-widest">Years Experience</span>
-            </div>
-            <div className="flex flex-col items-end text-right">
-              <span className="text-2xl font-black text-[#00aaff]">20+</span>
-              <span className="text-[10px] text-slate-500 uppercase font-black tracking-widest">Global Projects</span>
-            </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// --- ATTRACTIVE SERVICES HUB ---
-const ServicesSection = () => {
-  return (
-    <section id="services" className="max-w-7xl mx-auto py-24 border-t border-slate-900">
-      <div className="text-center mb-20">
-        <h2 className="text-5xl font-black tracking-tighter mb-4">Specialized <span className="text-[#00aaff]">Solutions</span></h2>
-        <p className="text-slate-500 max-w-2xl mx-auto text-lg italic">"I don't just build websites; I create digital engines for business growth."</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {SERVICES.map((service, idx) => (
-          <div key={idx} className="bg-slate-900/30 border border-slate-800 p-8 rounded-[2rem] hover:bg-slate-900/50 hover:border-[#00aaff]/30 transition-all group relative">
-            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
-              <service.icon className="text-white" size={28} />
-            </div>
-            <h3 className="text-xl font-black text-white mb-4">{service.title}</h3>
-            <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">
-              {service.desc}
-            </p>
-            <div className="flex items-center gap-2 text-[#00aaff] text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-              Learn More <ChevronRight size={12} />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-20 bg-gradient-to-r from-blue-900/20 to-cyan-900/20 border border-cyan-500/10 p-12 rounded-[3rem] text-center relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#00aaff]/5 to-transparent opacity-50"></div>
-        <div className="relative z-10">
-          <Sparkles className="text-[#00aaff] mx-auto mb-6" size={40} />
-          <h3 className="text-4xl font-black text-white mb-6 tracking-tighter">Ready to elevate your digital presence?</h3>
-          <p className="text-slate-400 mb-10 max-w-xl mx-auto font-medium">
-            Join the list of global clients who transformed their vision into high-converting digital realities.
-          </p>
-          <div className="flex justify-center gap-4">
-            <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="bg-[#00aaff] text-white px-10 py-4 rounded-full font-black hover:bg-[#00aaff]/90 transition-colors shadow-[0_0_20px_rgba(0,170,255,0.3)]">
-              Start a Project
-            </a>
-            <a href={`mailto:${EMAIL_ADDRESS}`} className="bg-white/5 border border-slate-700 text-white px-10 py-4 rounded-full font-black hover:bg-white/10 transition-all">
-              Consultation
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// --- UPDATED INFINITE MARQUEE WITH YOUR SPECIFIC EXPERIENCE ---
-const InfiniteMarquee = () => {
-  return (
-    <section className="w-full py-24 bg-[#020617] border-t border-slate-900 overflow-hidden relative">
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes marquee-reverse {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-        .animate-marquee { animation: marquee 30s linear infinite; }
-        .animate-marquee-reverse { animation: marquee-reverse 35s linear infinite; }
-      `}} />
-
-      <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#020617] to-transparent z-10"></div>
-      <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#020617] to-transparent z-10"></div>
-
-      <div className="flex flex-col gap-12">
-        {/* Row 1: Your Tools */}
-        <div className="flex whitespace-nowrap animate-marquee">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
-            <div key={idx} className="flex items-center gap-6 px-12 group cursor-default">
-              <div className="p-4 bg-slate-900/50 rounded-2xl border border-slate-800 group-hover:border-[#00aaff]/50 transition-all group-hover:scale-110">
-                <item.Icon className="text-[#00aaff]/70 group-hover:text-[#00aaff]" size={28} />
-              </div>
-              <span className="text-4xl font-black text-slate-800 group-hover:text-slate-200 transition-colors uppercase tracking-widest leading-none">
-                {item.name}
-              </span>
-              <div className="w-2 h-2 rounded-full bg-slate-800 mx-4"></div>
-            </div>
-          ))}
-        </div>
-
-        {/* Row 2: Your Core Services (Reverse) */}
-        <div className="flex whitespace-nowrap animate-marquee-reverse">
-          {[...MARQUEE_ITEMS.reverse(), ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
-            <div key={idx} className="flex items-center gap-6 px-12 group cursor-default">
-              <span className="text-4xl font-black text-slate-800 group-hover:text-slate-200 transition-colors uppercase tracking-widest leading-none">
-                {item.name}
-              </span>
-              <div className="p-4 bg-slate-900/50 rounded-2xl border border-slate-800 group-hover:border-[#00aaff]/50 transition-all group-hover:scale-110">
-                <item.Icon className="text-[#00aaff]/70 group-hover:text-[#00aaff]" size={28} />
-              </div>
-              <div className="w-2 h-2 rounded-full bg-slate-800 mx-4"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
+// --- MAIN APP ---
 export default function App() {
   return (
     <div className="min-h-screen bg-[#020617] text-white p-6 md:p-12 overflow-x-hidden selection:bg-cyan-500/30">
-      {/* NAVBAR */}
       <nav className="flex justify-between items-center mb-20 max-w-7xl mx-auto">
         <div className="text-2xl font-black flex items-center gap-2">
            <div className="w-10 h-10 bg-[#00aaff] rounded-lg flex items-center justify-center text-white text-sm italic">MH</div>
            Huzaifa<span className="text-[#00aaff]">.</span>
         </div>
         <div className="hidden md:flex gap-10 text-slate-400 text-sm font-bold uppercase tracking-widest">
-          <a href="#about" className="hover:text-white transition-colors">About</a>
           <a href="#projects" className="hover:text-white transition-colors">Projects</a>
           <a href="#experience" className="hover:text-white transition-colors">Experience</a>
           <a href="#services" className="hover:text-white transition-colors">Services</a>
-          <a href="#contact" className="hover:text-white transition-colors">Contact</a>
         </div>
       </nav>
 
-      {/* HERO */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-32">
         <div className="text-left">
           <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight tracking-tighter">Hey, I'm <br/><span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00aaff] to-blue-600">Huzaifa</span></h1>
@@ -405,12 +203,11 @@ export default function App() {
         <DigitalGlobe />
       </div>
 
-      {/* PROJECTS grid */}
       <section id="projects" className="max-w-7xl mx-auto py-24 border-t border-slate-900">
         <h2 className="text-5xl font-black mb-16 text-left tracking-tighter">Featured <span className="text-[#00aaff]">Projects</span></h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {PROJECTS.map((project) => (
-            <div key={project.id} className="bg-slate-900/40 border border-slate-800 rounded-[2.5rem] p-10 hover:border-[#00aaff]/50 transition-all group">
+            <div key={project.id} className="bg-slate-900/40 border border-slate-800 rounded-[2.5rem] p-10 hover:border-[#00aaff]/50 transition-all group flex flex-col">
               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${project.gradient} flex items-center justify-center mb-8`}><project.Icon className="text-white" size={32} /></div>
               <h3 className="text-3xl font-black mb-4 group-hover:text-[#00aaff] transition-colors">{project.title}</h3>
               <p className="text-slate-400 text-md mb-8 leading-relaxed font-medium">{project.description}</p>
@@ -420,29 +217,57 @@ export default function App() {
         </div>
       </section>
 
-      {/* PROFESSIONAL EXPERIENCE HUB */}
       <section id="experience" className="max-w-7xl mx-auto py-24 border-t border-slate-900">
-        <div className="mb-16">
-          <h2 className="text-5xl font-black tracking-tighter text-left mb-4">Professional <span className="text-[#00aaff]">Journey</span></h2>
-          <p className="text-slate-500 max-w-xl text-lg">My roadmap through technology and creative media over the last 3 years.</p>
+        <h2 className="text-5xl font-black mb-12">Professional <span className="text-[#00aaff]">Journey</span></h2>
+        <div className="lg:col-span-7 space-y-8">
+          {EXPERIENCE.map((exp, idx) => (
+            <div key={idx} className="bg-slate-900/40 border border-slate-800/50 p-6 rounded-2xl relative overflow-hidden group">
+               <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[#00aaff] to-blue-600"></div>
+              <span className="text-[#00aaff] text-sm font-bold block mb-2">{exp.period}</span>
+              <h3 className="text-2xl font-black">{exp.role}</h3>
+              <p className="text-slate-400 mb-4">{exp.company}</p>
+              <p className="text-slate-500">{exp.desc}</p>
+              <div className="flex gap-2 mt-4">
+                {exp.skills.map(s => <span key={s} className="text-[10px] uppercase font-bold border border-slate-800 px-2 py-1 rounded text-slate-500">{s}</span>)}
+              </div>
+            </div>
+          ))}
         </div>
-        <ExperienceHub />
       </section>
 
-      {/* SERVICES SECTION */}
-      <ServicesSection />
+      <section id="services" className="max-w-7xl mx-auto py-24 border-t border-slate-900">
+        <h2 className="text-5xl font-black mb-16 tracking-tighter">Expert <span className="text-[#00aaff]">Solutions</span></h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {SERVICES.map((s, idx) => (
+            <div key={idx} className="bg-slate-900/30 border border-slate-800 p-8 rounded-[2rem] hover:bg-slate-900/50 transition-all group">
+              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}><s.icon className="text-white" size={28} /></div>
+              <h3 className="text-xl font-black mb-4">{s.title}</h3>
+              <p className="text-slate-500 text-sm leading-relaxed font-medium">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      {/* INFINITE MARQUEE WITH UPDATED EXPERIENCE ITEMS */}
-      <InfiniteMarquee />
-
-      {/* FOOTER */}
-      <footer id="contact" className="mt-32 pt-12 border-t border-slate-900 text-center">
+      <footer className="mt-32 pt-12 border-t border-slate-900 text-center">
         <div className="flex justify-center gap-6 mb-8 text-slate-400">
            <a href={WHATSAPP_LINK} className="hover:text-[#00aaff] transition-colors"><MessageCircle size={30}/></a>
            <a href={`mailto:${EMAIL_ADDRESS}`} className="hover:text-[#00aaff] transition-colors"><Mail size={30}/></a>
         </div>
-        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">&copy; {new Date().getFullYear()} MUHAMMAD HUZAIFA | +923147600260</p>
+        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">&copy; {new Date().getFullYear()} MUHAMMAD HUZAIFA</p>
       </footer>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { animation: marquee 35s linear infinite; }
+      `}} />
+      <div className="w-full py-12 border-t border-slate-900 overflow-hidden flex whitespace-nowrap animate-marquee">
+        {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
+          <div key={idx} className="flex items-center gap-4 px-12 opacity-30 hover:opacity-100 transition-opacity cursor-default group">
+            <item.Icon className="text-[#00aaff] group-hover:scale-125 transition-transform" size={24} />
+            <span className="text-3xl font-black uppercase tracking-widest leading-none">{item.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
